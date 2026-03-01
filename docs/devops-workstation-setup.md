@@ -80,7 +80,11 @@ Python is used for automation, scripting, and AI-assisted DevOps tooling.
 ### Install Python 3.11
 
 ```bash
-sudo apt install -y python3.11 python3.11-venv python3-pip
+sudo apt update && sudo apt upgrade
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.11
+sudo apt install python3.11-dev python3.11-venv python3.11-distutils python3.11-gdbm python3.11-tk libbz2-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev zlib1g-dev
 ```
 
 Verify installation:
