@@ -29,6 +29,7 @@ def home():
 def health_check():
     return {
         "status": "healthy",
-        "service": "app",
+        "service": os.getenv("APP_NAME"),
+        "environment": os.getenv("ENVIRONMENT"),
         "time": datetime.utcnow()
     }
