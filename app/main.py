@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from datetime import datetime
 import socket
 import logging
+import os
 
 app = FastAPI()
 
@@ -17,7 +18,8 @@ hostname = socket.gethostname()
 def home():
     logging.info("Home endpoint accessed")
     return {
-        "message": "AI Powered DevOps Platform Running",
+        "message": os.getenv("APP_NAME"),
+        "environment": os.getenv("ENVIRONMENT"),
         "hostname": hostname,
         "timestamp": datetime.utcnow()
     }
