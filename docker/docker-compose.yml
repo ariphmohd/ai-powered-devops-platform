@@ -12,6 +12,9 @@ services:
     networks:
       - devops-net
 
+    volumes:
+    - ../logs/app:/var/log/app
+
   nginx:
     build: ../nginx
     container_name: nginx
