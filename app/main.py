@@ -4,7 +4,7 @@ import socket
 import logging
 import os
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
-import Response
+from fastapi import Response
 
 # ---------------------------------------------------
 # Application Initialization
