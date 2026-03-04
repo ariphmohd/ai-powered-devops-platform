@@ -1,11 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from datetime import datetime
 import socket
 import logging
 import os
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
-from fastapi import Response
-
 # ---------------------------------------------------
 # Application Initialization
 # ---------------------------------------------------
