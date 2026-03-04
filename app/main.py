@@ -3,6 +3,8 @@ from datetime import datetime
 import socket
 import logging
 import os
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+import Response
 
 # ---------------------------------------------------
 # Application Initialization
@@ -44,14 +46,17 @@ logger.info(f"Hostname: {hostname}")
 
 @app.get("/")
 def home():
-    logger.info("Home endpoint accessed")
+    REQUEST_COUNT.inc()
 
-    return {
-        "message": APP_NAME,
-        "environment": ENVIRONMENT,
-        "hostname": hostname,
-        "timestamp": datetime.utcnow()
-    }
+    with REQUEST_LATENCY.time():
+        logger.info("Home endpoint accessed")
+
+        return {
+            "message": APP_NAME,
+            "environment": ENVIRONMENT,
+            "hostname": hostname,
+            "timestamp": datetime.utcnow()
+        }
 
 
 @app.get("/health")
@@ -64,3 +69,17 @@ def health_check():
         "environment": ENVIRONMENT,
         "time": datetime.utcnow()
     }
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+REQUEST_COUNT = Counter(
+    "app_requests_total",
+    "Total HTTP requests"
+)
+
+REQUEST_LATENCY = Histogram(
+    "app_request_latency_seconds",
+    "Latency of HTTP requests"
+)
